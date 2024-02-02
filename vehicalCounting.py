@@ -22,8 +22,8 @@ cv2.namedWindow('VehicalCounting')
 cv2.setMouseCallback('VehicalCounting', VC)
 cam = cv2.VideoCapture("trafficVid.mp4")
 
-cy1 = 375
-cy2 = 430
+cy1 = 295
+cy2 = 330
 
 offset = 6
 
@@ -75,9 +75,10 @@ while True:
         cy = int(y3+y4)//2
 
         cv2.circle(frame, (cx,cy), 4, (0,255,255), cv2.FILLED)
+        cv2.putText(frame,f"id:{id}",(x3-5,y3),cv2.FONT_HERSHEY_PLAIN,1,(255,70,255),2)
         if cy1<(cy+offset) and cy1>(cy-offset):
             cv2.rectangle(frame, (x3,y3),(x4,y4), (0,255,0),2,cv2.FILLED)
-            cv2.putText(frame,f"id:{id}",(x3-5,y3),cv2.FONT_HERSHEY_PLAIN,1,(255,70,255),2)
+            
             # cv2.putText(emptyFrame,f"id:{id}",(100,250),cv2.FONT_HERSHEY_PLAIN,1,(255,50,255),2)
             carDown[id] = (cx, cy)
         
@@ -89,7 +90,7 @@ while True:
         
         if cy2<(cy+offset) and cy2>(cy-offset):
             cv2.rectangle(frame, (x3,y3),(x4,y4), (0,255,0),2,cv2.FILLED)
-            cv2.putText(frame,f"id:{id}",(x3-5,y3),cv2.FONT_HERSHEY_PLAIN,1,(255,70,255),2)
+            # cv2.putText(frame,f"id:{id}",(x3-5,y3),cv2.FONT_HERSHEY_PLAIN,1,(255,70,255),2)
             # cv2.putText(emptyFrame,f"id:{id}",(100,250),cv2.FONT_HERSHEY_PLAIN,1,(255,50,255),2)
             carUp[id] = (cx, cy)
         
@@ -100,13 +101,13 @@ while True:
                 if counter2.count(id)==0:
                     counter2.append(id)
 
-    cv2.line(frame, (363,375),(1150,375), (50,0,100),2)
-    cv2.putText(frame, "L1", (358, 370), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
+    cv2.line(frame, (500,cy1),(1015, cy1), (50,0,100),2)
+    cv2.putText(frame, "L1", (495, cy1-5), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
     cv2.putText(frame, f"Down: {len(counter1)}", (80, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
 
 
-    cv2.line(frame, (268,430),(1217, 430), (50,250,100),2)
-    cv2.putText(frame, "L2", (263, 425), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
+    cv2.line(frame, (428,cy2),(1060, cy2), (50,250,100),2)
+    cv2.putText(frame, "L2", (423, cy2-5), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
     cv2.putText(frame, f"UP: {len(counter2)}", (80, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (0,255,200),2)
 
     cv2.imshow("VehicalCounting", frame)
